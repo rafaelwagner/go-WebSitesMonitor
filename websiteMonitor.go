@@ -42,8 +42,8 @@ func main() {
 func exibeIntroducao() {
 	nome := "Rafael"
 	versao := 1.1
-	fmt.Println("Ola, sr.", nome)
-	fmt.Println("Este programa esta na versao ", versao)
+	fmt.Println("Hello, mr.", nome)
+	fmt.Println("This program is in version ", versao)
 }
 
 func leComando() int {
@@ -53,19 +53,19 @@ func leComando() int {
 }
 
 func exibeMenu() {
-	fmt.Println("1 - Iniciar Monitoramento")
-	fmt.Println("2 - Exibir os Logs")
-	fmt.Println("3 - Limpar Logs")
-	fmt.Println("0 - Sair do programa")
+	fmt.Println("1 - Start Monitoring")
+	fmt.Println("2 - View Logs")
+	fmt.Println("3 - Clear Logs")
+	fmt.Println("0 - Exit")
 	fmt.Println("")
 }
 
 func iniciarMonitoramento() {
-	fmt.Println("Monitorando...")
+	fmt.Println("Monitoring...")
 	sites := lerSitesDoArquivo()
 	for i := 0; i < monitoramentos; i++ {
 		for _, site := range sites {
-			fmt.Println("Testando site: ", site)
+			fmt.Println("Testing site: ", site)
 			testaSite(site)
 		}
 		time.Sleep(delay * time.Second)
@@ -78,14 +78,14 @@ func testaSite(site string) {
 	resp, err := http.Get(site)
 
 	if err != nil {
-		fmt.Println("Ocorreu um erro: ", err)
+		fmt.Println("An error has occurred: ", err)
 		registraLog(site, false)
 	}
 	if resp.StatusCode == 200 {
-		fmt.Println("Site:", site, " foi carregado com sucesso!")
+		fmt.Println("Site:", site, " was successfully loaded!")
 		registraLog(site, true)
 	} else {
-		fmt.Println("Site:", site, " esta com problemas. Status Code: ", resp.StatusCode)
+		fmt.Println("Site:", site, " it has problems. Status Code: ", resp.StatusCode)
 		registraLog(site, false)
 	}
 }
@@ -96,7 +96,7 @@ func lerSitesDoArquivo() []string {
 
 	arquivo, err := os.Open(arquivoSites)
 	if err != nil {
-		fmt.Println("Ocorreu um erro: ", err)
+		fmt.Println("An error has occurred: ", err)
 	}
 
 	leitor := bufio.NewReader(arquivo)
@@ -115,7 +115,7 @@ func registraLog(site string, status bool) {
 	arquivo, err := os.OpenFile(arquivoLog, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 
 	if err != nil {
-		fmt.Println("Ocorreu um erro: ", err)
+		fmt.Println("An error has occurred: ", err)
 	}
 
 	arquivo.WriteString(time.Now().Format("02/01/2006 15:04:05") + " - " + site + " - Online: " + strconv.FormatBool(status) + "\n")
@@ -127,7 +127,7 @@ func exibeLogs() {
 	arquivo, err := ioutil.ReadFile(arquivoLog)
 
 	if err != nil {
-		fmt.Println("Ocorreu um erro: ", err)
+		fmt.Println("An error has occurred: ", err)
 	}
 
 	fmt.Println(string(arquivo))
