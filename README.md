@@ -1,7 +1,7 @@
 # Website Monitor
 To run the application after installing the latest version of go available at https://golang.org/dl/
 
-**Command**
+**Command:**
   ```sh
   go run websiteMonitor.go
   ```
